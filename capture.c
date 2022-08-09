@@ -2,6 +2,7 @@
 #include "queue.h"
 #include<stdlib.h>
 
+//function to rand matrix for the pixels of the picture
 void randMat(int** matrix_temp){
     int i,j,new_temp,height_pos,width_pos,num_iterations=0.1*SNAPSHOT_WIDTH*SNAPSHOT_HEIGHT;
     for(i=0;i<SNAPSHOT_HEIGHT;i++){
@@ -18,6 +19,7 @@ void randMat(int** matrix_temp){
     }
 }
 
+//function to create a single picture
 
 void * capture(task * task){
 
@@ -37,10 +39,10 @@ void * capture(task * task){
     randMat(matrix);
     task->my_current_node=createNode(matrix, sizeof(int));
     printf("capture %d\n",((int**)(task->my_current_node->data))[0][0]);
-    if(my_handler->my_status & STOP_RECORD_ACTIVE)
+    if((my_handler->my_status & STOP_RECORD_ACTIVE))
         my_stage->isActive=0;
-    if(my_handler->my_status & SNAPSHOT_ACTIVE)
-        my_stage->isActive=0;
+    if((my_handler->my_status & SNAPSHOT_ACTIVE) && !(my_handler->my_status & RECORD_ACTIVE))
+          my_stage->isActive=0;
     }
     else
     {

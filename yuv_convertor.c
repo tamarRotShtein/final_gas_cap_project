@@ -1,5 +1,4 @@
 #include "yuv_convertor.h"
-#include "handle_stages.h"
 #include<stdlib.h>
 
 void convert_to_yuv(char rgb_matrix[],  YUV *yuv){
@@ -26,6 +25,7 @@ void free_rgb_matrix1(char * m){
     m=NULL;
 }
 
+//function to convert picture from rgb to yuv format
 void* yuv_converter(task * task)
 {
     stage * my_stage=task->my_stage;
@@ -35,6 +35,7 @@ void* yuv_converter(task * task)
 
         my_stage->isActive=1;
         node * my_node=task->my_current_node;
+        char x=*((char *)my_node->data);
         YUV * yuv=(YUV*)malloc(sizeof(YUV));
         convert_to_yuv((char*)my_node->data,yuv);
         char * c=(char*)(my_node->data);

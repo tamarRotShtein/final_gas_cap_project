@@ -32,7 +32,7 @@ void free_rgb_matrix(char * m){
     m=NULL;
 }
 
-
+// function to create matrix of pixels in rgb
 void* rgb_converter(task * task){
     stage * my_stage=task->my_stage;
     if(task->my_current_node->data!=NULL){
@@ -50,7 +50,7 @@ void* rgb_converter(task * task){
         {
             save_snapshot(rgb_matrix,my_handler->snapshot);
             my_handler->my_status=my_handler->my_status & (~SNAPSHOT_ACTIVE);
-            free_rgb_matrix(rgb_matrix);
+            //free_rgb_matrix(rgb_matrix);
         }
         task->my_current_node=createNode(rgb_matrix,sizeof(rgb_matrix));
         printf("rgb \n");

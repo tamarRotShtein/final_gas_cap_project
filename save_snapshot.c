@@ -3,6 +3,8 @@
 #include<string.h>
 #include <stdint.h>
 
+
+//function to save a picture in jpeg type
 void saveFrame_jpg(uint8_t *pRGBBuffer, char * iFrame, int width, int height)
 {
 
@@ -54,6 +56,8 @@ void saveFrame_jpg(uint8_t *pRGBBuffer, char * iFrame, int width, int height)
 
    fclose(fp);
 }
+
+//function to save a picture in bmp type
 size_t ppm_save(ppm_image *img) {
     printf("save ppm\n %d",img->width);
     FILE *   fp=fopen("img123.bmp","wb+");
@@ -64,6 +68,8 @@ size_t ppm_save(ppm_image *img) {
     fclose(fp);
     return n;
 }
+
+//function to save a picture by type
 void save_snapshot(char* rgb_matrix,snapshot_t snapshot){
     if(!strcmp(snapshot.type,"bmp"))
     {

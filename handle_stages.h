@@ -6,7 +6,9 @@
 #define MAX_TEMP 30
 #include <pthread.h>
 #include "queue.h"
+#include "stage.h"
 
+//enum to save the status of the handler
 typedef enum status
 {
     CAPTURE_ACTIVE      = 1,
@@ -14,19 +16,8 @@ typedef enum status
     STOP_RECORD_ACTIVE  = 4,
     SNAPSHOT_ACTIVE     = 8
 }status;
-typedef struct stage{
 
-    void* (*my_task)(void*);
-    pthread_t thread;
-    int isActive;
-    queue* sourseQu;
-    queue* destQu;
-    struct stage * next_stage;
-  //  struct stage * prev_stage;
-    int is_enqueue;
-    int is_dequeue;
-}stage;
-
+//struct to save information about a snapshot
 typedef struct snapshot_t{
     char* file_name;  //full path ?
     int width;
@@ -34,6 +25,7 @@ typedef struct snapshot_t{
     char * type;  //GPEG,PNG,ppm
 }snapshot_t;
 
+//struct to the handler of the pipeline
 typedef struct handler{
     char * static_mat_rgb[MAX_TEMP*3];    
     stage * stages;
@@ -43,6 +35,7 @@ typedef struct handler{
 
 }handler;
 
+//struct for the functions of the stages
 typedef  struct task{
 
     stage * my_stage;
@@ -51,6 +44,7 @@ typedef  struct task{
 
 } task;
 
+//function to run a task of stage in the pipeline
 void run_task(task * my_task);
 
 #endif // HANDLE_STAGES_H

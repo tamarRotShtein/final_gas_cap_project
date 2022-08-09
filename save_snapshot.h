@@ -4,6 +4,8 @@
 #include "handle_stages.h"
 #include <setjmp.h>
 #include <jpeglib.h>
+
+//struct for function in bmp type
 typedef struct ppm_image{
     int width;
     int height;
@@ -12,6 +14,7 @@ typedef struct ppm_image{
     char * name;
 } ppm_image;
 
+//function to save a picture by type
 void save_snapshot(char* ,snapshot_t );
 
 #endif // SAVE_SNAPSHOT_H

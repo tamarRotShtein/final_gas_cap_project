@@ -3,7 +3,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "handle_stages.h"
-#define STAGES_NUMBER 3
+
+#define STAGES_NUMBER 4
 #define CAPACITY 10
 
 
@@ -29,22 +30,16 @@ typedef struct record_t{
     int height;
     int fps;
 }record_t;
-//typedef struct ppm_image{
-//    int width;
-//    int height;
-//    char *data;
-//    size_t size;
-//    char * name;
-//} ppm_image;
+
 typedef struct {
 
-    void* (*init)();
-    void (*free_all)(void* handle);
-    int (*start_record)(void* handler);
-    int (*stop_record)(void* handler);
+    void* (*init)();//function to init the handler to the record and snapshot
+    void (*free_all)(void* handle);//function to free the handler
+    int (*start_record)(void* handler);//function to start the record
+    int (*stop_record)(void* handler);//function to stop the record
     int (*start_streaming)(streaming_t*,char * file_name);
     int (*stop_streamig)(streaming_t*);
-    int (*do_snapshot)(void*);
+    int (*do_snapshot)(void*);//function to create a picture
     char* (*get_dll_version)();
     char* (*get_video_statics)(record_t*);
     char* (*get_status)();

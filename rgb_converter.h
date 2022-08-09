@@ -4,7 +4,7 @@
 
 
 
-
+// function to create matrix of pixels in rgb
 void* rgb_converter(task * task);
 
 
