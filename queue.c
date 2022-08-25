@@ -5,7 +5,7 @@
 
 //implement queue synchronic functions
 
-node * createNode(void * data, int size){
+node * createNode(void * data){
     node* my_node=(node*)malloc(sizeof(node));
     my_node->data=data;
     my_node->next=NULL;

@@ -12,7 +12,6 @@ void run_task(task * my_task)
    stage->my_task(my_task);   
    if(stage->is_enqueue)
        enqueu(stage->destQu,my_task->my_current_node);
-   sleep(3);
    }
    while(stage->isActive);
    free(my_task);

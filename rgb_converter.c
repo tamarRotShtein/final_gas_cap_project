@@ -12,7 +12,8 @@ void convert_to_rgb(handler * handle,char rgb_matrix[],int** matrix)
     for(int i=0;i<SNAPSHOT_HEIGHT;i++)
         for(int j=0;j<SNAPSHOT_WIDTH;j++)
         {
-            int t=matrix[i][j]*3;
+            //int t=matrix[i][j]*3;
+            int t=matrix[i][j];
             rgb_matrix[k++]=handle->static_mat_rgb[t];
             rgb_matrix[k++]=handle->static_mat_rgb[t+1];
             rgb_matrix[k++]=handle->static_mat_rgb[t+2];
@@ -45,14 +46,14 @@ void* rgb_converter(task * task){
         *rgb_matrix=0;
         convert_to_rgb(my_handler,rgb_matrix,(int**)my_node->data);
         free_matrix((int**)(my_node->data));
-        freeNode(my_node);
+        //freeNode(my_node);
         if((my_handler->my_status & SNAPSHOT_ACTIVE))
         {
             save_snapshot(rgb_matrix,my_handler->snapshot);
             my_handler->my_status=my_handler->my_status & (~SNAPSHOT_ACTIVE);
             //free_rgb_matrix(rgb_matrix);
         }
-        task->my_current_node=createNode(rgb_matrix,sizeof(rgb_matrix));
+        task->my_current_node->data=rgb_matrix;
         printf("rgb \n");
     }
     else

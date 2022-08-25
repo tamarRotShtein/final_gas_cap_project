@@ -7,8 +7,9 @@
 #include <pthread.h>
 #include "queue.h"
 #include "stage.h"
+#include "snapshot_t.h"
+#include "record_t.h"
 
-//enum to save the status of the handler
 typedef enum status
 {
     CAPTURE_ACTIVE      = 1,
@@ -17,21 +18,19 @@ typedef enum status
     SNAPSHOT_ACTIVE     = 8
 }status;
 
-//struct to save information about a snapshot
-typedef struct snapshot_t{
-    char* file_name;  //full path ?
-    int width;
-    int height;
-    char * type;  //GPEG,PNG,ppm
-}snapshot_t;
+
 
 //struct to the handler of the pipeline
 typedef struct handler{
-    char * static_mat_rgb[MAX_TEMP*3];    
+
+    char * static_mat_rgb[MAX_TEMP*3];//enum to save the status of the handler
+
     stage * stages;
     status my_status;
     FILE *  fp;
     snapshot_t snapshot;
+    record_t record;
+
 
 }handler;
 

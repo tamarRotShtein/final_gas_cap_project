@@ -57,19 +57,32 @@ void* GAS_API_init(){
     handle->my_status=0;
     int j=0;
     char z=(char)255,x=0;
+    while(j!=MAX_TEMP*3/2)
+        {
+            //rand numbers
+            handle->static_mat_rgb[j++]=x;
+            handle->static_mat_rgb[j++]=x;
+            handle->static_mat_rgb[j++]=z;
+        }
     while(j!=MAX_TEMP*3)
-    {
-        //rand numbers
-        handle->static_mat_rgb[j++]=z;
-        handle->static_mat_rgb[j++]=x;
-        handle->static_mat_rgb[j++]=x;
-    }
-    handle->static_mat_rgb[9]=x;
-    handle->static_mat_rgb[10]=x;
-    handle->static_mat_rgb[11]=z;
-    handle->static_mat_rgb[81]=x;
-    handle->static_mat_rgb[82]=z;
-    handle->static_mat_rgb[83]=x;
+        {
+            //rand numbers
+            handle->static_mat_rgb[j++]=z;
+            handle->static_mat_rgb[j++]=x;
+            handle->static_mat_rgb[j++]=x;
+        }
+
+        for ( i=0;i<80;i++) {
+            handle->static_mat_rgb[i++]=x;
+            handle->static_mat_rgb[i++]=x;
+            handle->static_mat_rgb[i]=z;
+           }
+//    handle->static_mat_rgb[9]=y;
+//    handle->static_mat_rgb[10]=x;
+//    handle->static_mat_rgb[11]=z;
+//    handle->static_mat_rgb[81]=x;
+//    handle->static_mat_rgb[82]=z;
+//    handle->static_mat_rgb[83]=x;
     return (void*)handle;
 }
 
@@ -99,7 +112,7 @@ int GAS_API_stop_record(void* handle)
         pthread_join(temp->thread,NULL);
         temp=temp->next_stage;
     }
-    GAS_API_free_all(my_handler);
+   // GAS_API_free_all(my_handler);
 
 }
 //function to start the record
@@ -107,6 +120,9 @@ int GAS_API_start_record(void* handle){
     printf ("====start_record!====\n");
     handler* my_handler=(handler*)(handle);
     my_handler->my_status|=RECORD_ACTIVE;
+    my_handler->record.file_name="record";
+    my_handler->record.width=SNAPSHOT_WIDTH;
+    my_handler->record.height=SNAPSHOT_HEIGHT;
     stage * temp=my_handler->stages;
     task * my_task=NULL;
     while(temp){
@@ -129,8 +145,6 @@ int GAS_API_do_snapshot(void * handle){
     my_handler->snapshot.type="bmp";
     my_handler->snapshot.width=SNAPSHOT_WIDTH;
     my_handler->snapshot.height=SNAPSHOT_HEIGHT;
-    //    time_t t = time(NULL);
-    //    struct tm tm = *localtime(&t);
     //    my_handler->snapshot.file_name=fprintf("now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     my_handler->snapshot.file_name="1";
     my_handler->my_status|=SNAPSHOT_ACTIVE;
@@ -160,7 +174,7 @@ int GAS_API_do_snapshot(void * handle){
     }
     return 1;
 }
-gazapi_t p_gaz_api= {
+gasapi_t p_gaz_api= {
     .init=GAS_API_init,
     .free_all=GAS_API_free_all,
     .start_record=GAS_API_start_record,

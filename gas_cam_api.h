@@ -23,13 +23,7 @@ typedef struct gpio_t{
     int operation;  //record,straming
 }gpio_t;
 
-typedef struct record_t{
-    char* file_name;
-    int codec;
-    int width;
-    int height;
-    int fps;
-}record_t;
+
 
 typedef struct {
 
@@ -43,7 +37,7 @@ typedef struct {
     char* (*get_dll_version)();
     char* (*get_video_statics)(record_t*);
     char* (*get_status)();
-}gazapi_t;
+}gasapi_t;
 
 
 #endif // GAS_CAM_API_H

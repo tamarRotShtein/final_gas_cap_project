@@ -16,7 +16,7 @@ typedef struct queue{
     struct node* tail;
 }queue;
 
-node * createNode(void * data, int);
+node * createNode(void * data);
 queue* createQueue(int capacity);
 void initQueue(queue*,int capacity);
 void freeNode(node* node);

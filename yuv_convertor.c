@@ -1,6 +1,5 @@
 #include "yuv_convertor.h"
 #include<stdlib.h>
-
 void convert_to_yuv(char rgb_matrix[],  YUV *yuv){
     char R,G,B;
     for(int i=0;i<SNAPSHOT_HEIGHT;i++)
@@ -35,13 +34,12 @@ void* yuv_converter(task * task)
 
         my_stage->isActive=1;
         node * my_node=task->my_current_node;
-        char x=*((char *)my_node->data);
         YUV * yuv=(YUV*)malloc(sizeof(YUV));
         convert_to_yuv((char*)my_node->data,yuv);
         char * c=(char*)(my_node->data);
         free_rgb_matrix1(c);
-        freeNode(my_node);
-        task->my_current_node=createNode(yuv,sizeof(YUV*));
+        //freeNode(my_node);
+        task->my_current_node->data=yuv;
     }
     else
     {

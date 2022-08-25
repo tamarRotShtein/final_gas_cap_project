@@ -28,8 +28,10 @@ HEADERS += \
     gas_cam_api.h \
     handle_stages.h \
     queue.h \
+    record_t.h \
     rgb_converter.h \
     save_snapshot.h \
+    snapshot_t.h \
     stage.h \
     yuv_convertor.h \
     jpeglib.h \
